@@ -6,15 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
- protected $fillable = [
+    protected $fillable = [
         'student_id',
+        'course_id', 
         'attendance_date',
         'status',
+        'remarks'
     ];
 
     public function student()
-{
-    // This links the attendance record back to the student
-    return $this->belongsTo(Student::class);
-}
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
