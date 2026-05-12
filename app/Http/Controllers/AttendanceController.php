@@ -53,29 +53,29 @@ class AttendanceController extends Controller
             );
         }
 
-        return redirect()->route('dashboard')->with('success', 'Attendance recorded successfully!');
+        return redirect()->route('courses.show', $request->course_id)->with('success', 'Attendance recorded successfully!');
     }
+
 
     public function report(Request $request)
     {
-        // Get all courses so the teacher can pick which report to view
         $courses = \App\Models\Course::orderBy('course_name')->get();
         
         $selectedCourseId = $request->input('course_id');
         $reportData = collect();
         $selectedCourse = null;
+        $paginatedStudents = null; 
 
         if ($selectedCourseId) {
-            $selectedCourse = \App\Models\Course::with('students')->findOrFail($selectedCourseId);
+            $selectedCourse = \App\Models\Course::findOrFail($selectedCourseId);
+
+            $paginatedStudents = $selectedCourse->students()->paginate(15)->withQueryString();
             
-            // For each student in the class, calculate their total attendance stats
-            foreach ($selectedCourse->students as $student) {
-                // Get all attendance records for THIS student in THIS class
+            foreach ($paginatedStudents as $student) {
                 $records = \App\Models\Attendance::where('student_id', $student->id)
                     ->where('course_id', $selectedCourseId)
                     ->get();
 
-                // Group and count the statuses
                 $reportData->push([
                     'student' => $student,
                     'present_count' => $records->where('status', 'Present')->count(),
@@ -86,6 +86,6 @@ class AttendanceController extends Controller
             }
         }
 
-        return view('attendances.report', compact('courses', 'selectedCourseId', 'selectedCourse', 'reportData'));
+        return view('attendances.report', compact('courses', 'selectedCourseId', 'selectedCourse', 'reportData', 'paginatedStudents'));
     }
 }

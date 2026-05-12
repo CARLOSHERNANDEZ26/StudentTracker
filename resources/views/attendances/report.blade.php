@@ -34,13 +34,7 @@
                             <p class="text-sm text-gray-500">Semester Summary</p>
                         </div>
                         
-                        <!-- A neat visual trick: using browser print functionality for instant "Export" -->
-                        <button onclick="window.print()" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M5 2.75C5 1.784 5.784 1 6.75 1h6.5c.966 0 1.75.784 1.75 1.75v3.552c.377.046.752.097 1.126.153A2.212 2.212 0 0118 8.653v4.083A2.25 2.25 0 0115.75 15h-.241l.305 1.984A1.75 1.75 0 0114.084 19H5.915a1.75 1.75 0 01-1.73-2.016L4.492 15H4.25A2.25 2.25 0 012 12.736V8.653c0-1.082.775-2.034 1.874-2.198.374-.056.75-.107 1.127-.153L5 6.25v-3.5zm8.5 3.397a41.533 41.533 0 00-7 0V2.5h7v3.647zM5.5 15v2.25c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V15h-9zM4 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                            </svg>
-                            Print Report
-                        </button>
+
                     </div>
 
                     <div class="p-0 overflow-x-auto">
@@ -81,8 +75,15 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-                        </table>
+                        <</table>
                     </div>
+                    
+                    @if(isset($paginatedStudents) && $paginatedStudents->hasPages())
+                        <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                            {{ $paginatedStudents->links() }}
+                        </div>
+                    @endif
+
                 </div>
             @else
                 <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">

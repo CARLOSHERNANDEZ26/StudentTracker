@@ -13,8 +13,8 @@ class StudentController extends Controller
     public function index()
     {
      
-        $students = Student::all();
-        
+        $students = \App\Models\Student::orderBy('created_at', 'desc')->paginate(15);
+
         return view('students.index', compact('students'));
     }
 
@@ -30,19 +30,23 @@ class StudentController extends Controller
      * Store a newly created student in storage.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-    'student_id' => 'required|string|max:255|unique:students,student_id,' . ($student->id ?? 'NULL'),
-    'last_name' => 'required|string|max:255',
-    'first_name' => 'required|string|max:255',
-    'middle_name' => 'nullable|string|max:255', // Middle name is often optional
-    'section' => 'required|string|max:255',
-]);
+{
+    // This tells Laravel exactly what rules the data must follow
+    $validated = $request->validate([
+        'student_id' => 'required|string|max:9|unique:students,student_id', 
+        'last_name' => 'required|string|max:255',
+        'first_name' => 'required|string|max:255',
+        'middle_name' => 'nullable|string|max:255', 
+        'section' => 'required|string|max:50',
+    ], [
+        'student_id.max' => 'The Student ID cannot be more than 9 characters long.',
+        'student_id.unique' => 'This Student ID is already registered in the system.',
+    ]);
 
-        Student::create($validated);
+    Student::create($validated);
 
-        return redirect()->route('students.index')->with('success', 'Student added successfully!');
-    }
+    return redirect()->route('students.index')->with('success', 'Student added successfully!');
+}
 
     public function edit(Student $student)
     {

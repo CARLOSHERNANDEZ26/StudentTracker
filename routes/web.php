@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('attendance/report', [AttendanceController::class, 'report'])->name('attendances.report');
     Route::get('attendance/review/{course}', [AttendanceReviewController::class, 'show'])->name('attendances.review');
     Route::post('attendance/review/{course}', [AttendanceReviewController::class, 'update'])->name('attendances.review.update');
+    Route::delete('/courses/{course}/students/{student}', [App\Http\Controllers\CourseController::class, 'unenroll'])
+        ->name('courses.unenroll');
 });
 
 require __DIR__.'/auth.php';
