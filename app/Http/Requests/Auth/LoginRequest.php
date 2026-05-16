@@ -28,7 +28,16 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => [
+                'required', 
+                'string', 
+                'email',
+                function ($attribute, $value, $fail) {
+                    if (!str_ends_with($value, '@gordoncollege.edu.ph')) {
+                        $fail('Only official @gordoncollege.edu.ph accounts are authorized to log in.');
+                    }
+                },
+            ],
             'password' => ['required', 'string'],
         ];
     }

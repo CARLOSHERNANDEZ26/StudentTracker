@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            StudentSeeder::class,
         // User::factory(10)->create();
+        ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Professor Hernandez',
+            'email' => 'jan_carlo.hernandez@gordoncollege.edu.ph',
+            'password' => bcrypt('password'), 
         ]);
     }
 }

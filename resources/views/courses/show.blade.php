@@ -32,7 +32,7 @@
                         <form action="{{ route('courses.enroll', $course->id) }}" method="POST" class="flex items-center gap-3">
                             @csrf
                             <div class="flex-grow">
-                                <select name="student_id" id="searchable-student-select" required placeholder="Search to enroll a student...">
+                                <select name="student_ids[]" id="searchable-student-select" multiple required placeholder="Search and select multiple students...">
                                     <option value="">Search to enroll a student...</option>
                                     @foreach($availableStudents as $student)
                                         <option value="{{ $student->id }}">{{ $student->full_formatted_name }}</option>
@@ -204,13 +204,14 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            new TomSelect("#searchable-student-select",{
-                create: false,
-                sortField: { field: "text", direction: "asc" },
-                maxOptions: null
-            });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        new TomSelect("#searchable-student-select",{
+            plugins: ['remove_button'], 
+            create: false,
+            sortField: { field: "text", direction: "asc" },
+            maxOptions: null
         });
-    </script>
+    });
+</script>
 </x-app-layout>

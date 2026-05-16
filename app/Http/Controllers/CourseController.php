@@ -54,18 +54,20 @@ public function show(Course $course)
 
 
 public function enroll(Request $request, Course $course)
-{
-    $request->validate([
-        'student_id' => 'required|exists:students,id',
-    ]);
+    {
+        // Validate array of valid student IDs
+        $request->validate([
+            'student_ids'   => 'required|array',
+            'student_ids.*' => 'exists:students,id',
+        ]);
 
-    $course->students()->attach($request->student_id);
+        $course->students()->syncWithoutDetaching($request->student_ids);
 
-    return back()->with('success', 'Student enrolled successfully!');
-}
+        return redirect()->route('courses.show', $course->id)
+            ->with('success', 'Students successfully enrolled!');
+    }
 public function unenroll(Course $course, Student $student)
 {
-    // This is the magic line that removes the connection in the pivot table
     $course->students()->detach($student->id);
 
     return redirect()->route('courses.show', $course->id)

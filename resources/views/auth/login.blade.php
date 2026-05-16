@@ -23,13 +23,15 @@
 
                 <!-- Email Address -->
                 <div>
-                    <label for="email" class="block text-sm font-bold leading-6 text-slate-700 uppercase tracking-wider">Email Address</label>
-                    <div class="mt-2">
-                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
-                            class="block w-full rounded-lg border-slate-300 py-3 text-slate-900 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:text-sm">
-                    </div>
-                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500 font-medium" />
-                </div>
+    <label for="email" class="block text-sm font-bold leading-6 text-slate-700 uppercase tracking-wider">Official Email Address</label>
+    <div class="mt-2">
+        <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="name@gordoncollege.edu.ph"
+            class="block w-full rounded-lg border-slate-300 py-3 text-slate-900 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:text-sm">
+    </div>
+    <p class="text-xs text-slate-500 mt-1 italic">Must be an @gordoncollege.edu.ph domain.</p>
+    
+    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500 font-medium" />
+</div>
 
                 <!-- Password -->
                 <div>
