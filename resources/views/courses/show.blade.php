@@ -60,7 +60,7 @@
                         <button @click="activeTab = 'roster'" 
                                 :class="activeTab === 'roster' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" 
                                 class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
-                            <span class="mr-2">👥</span> Manage Roster ({{ $course->students->count() }})
+                            <span class="mr-2">👥</span> Manage Students ({{ $course->students->count() }})
                         </button>
                     </nav>
                 </div>

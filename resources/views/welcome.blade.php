@@ -48,7 +48,7 @@
                     </h2>
 
                     <p class="text-lg text-slate-600 max-w-lg mx-auto md:mx-0 leading-relaxed font-medium">
-                        A centralized system designed to monitor class participation, generate cumulative reports, and streamline academic record-keeping for professors.
+                        A centralized system designed to monitor class attendance, generate student attendance reports, and optimize academic record-keeping for professors.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
@@ -91,7 +91,7 @@
                                     </div>
                                     <div>
                                         <p class="font-extrabold text-slate-800 text-lg">Multi-Class Management</p>
-                                        <p class="text-sm text-slate-500 font-medium">Organize rosters and schedules</p>
+                                        <p class="text-sm text-slate-500 font-medium">Organize students list and schedules</p>
                                     </div>
                                 </div>
 
